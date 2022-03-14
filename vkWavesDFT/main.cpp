@@ -23,7 +23,6 @@
 // Vertex layout for this example
 struct Vertex {
 	float pos[3];
-	float uv[2];
 	float normal[3];
 };
 class vkOceanWaveDFT : public VulkanExampleBase
