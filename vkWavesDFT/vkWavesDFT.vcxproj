@@ -145,11 +145,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="complex.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\texture.frag" />
-    <None Include="shaders\texture.vert" />
+    <None Include="shaders\oceanWaveDFT.frag" />
+    <None Include="shaders\oceanWaveDFT.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="complex.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

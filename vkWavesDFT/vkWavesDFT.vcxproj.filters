@@ -18,13 +18,33 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="complex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="vector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\texture.vert">
+    <None Include="shaders\oceanWaveDFT.vert">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="shaders\texture.frag">
+    <None Include="shaders\oceanWaveDFT.frag">
       <Filter>资源文件</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="complex.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
