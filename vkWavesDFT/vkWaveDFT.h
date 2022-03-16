@@ -11,11 +11,11 @@
 
 // Vertex layout for this example
 struct vertexOcean {
-	float pos[3];
-	float normal[3];
-	float htilde0[3];
-	float htilde0Conj[3];
-	float originalPos[3];
+	glm::vec4 pos;
+	glm::vec4 normal;
+	glm::vec4 htilde0;
+	glm::vec4 htilde0Conj;
+	glm::vec4 originalPos;
 };
 
 struct complex_vector_normal
@@ -48,11 +48,19 @@ public:
 		std::vector<VkVertexInputAttributeDescription> attributeDescriptions;
 	} vertices;
 
-	vertexOcean* verticesOcean;
-	unsigned int* indices;
+	struct
+	{
+		VkBuffer buffer;
+		VkDeviceMemory memory;
+		// Store the mapped address of the ocean wave data for reuse
+		void* mappedMemory;
+		// Size of the ocean wave buffer in bytes
+		size_t size;
+	} oceanWaves;
 
-	void* oceanMappedMemory;
-	VkDeviceMemory oceanMemory;
+	std::vector<vertexOcean> oceanBuffer;
+	//vertexOcean* verticesOcean;
+	//unsigned int* indices;
 
 	float g;				// gravity constant
 	uint64_t N, Nplus1;				// dimension -- N should be a power of 2
@@ -60,9 +68,9 @@ public:
 	vector2 w;				// wind parameter
 	float length;				// length parameter
 
-	vks::Buffer vertexBuffer;
-	vks::Buffer indexBuffer;
-	uint32_t indexCount;
+	//vks::Buffer vertexBuffer;
+	//vks::Buffer indexBuffer;
+	//uint32_t indexCount;
 
 	vks::Buffer uniformBufferVS;
 

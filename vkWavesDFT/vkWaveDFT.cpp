@@ -61,8 +61,8 @@ float vkOceanWaveDFT::dispersion(int n_prime, int m_prime)
 complex vkOceanWaveDFT::hTilde(float t, int n_prime, int m_prime) {
 	int index = m_prime * Nplus1 + n_prime;
 
-	complex htilde0(verticesOcean[index].htilde0[0], verticesOcean[index].htilde0[1]);
-	complex htilde0mkconj(verticesOcean[index].htilde0Conj[0], verticesOcean[index].htilde0Conj[1]);
+	complex htilde0(oceanBuffer[index].htilde0.x, oceanBuffer[index].htilde0.y);
+	complex htilde0mkconj(oceanBuffer[index].htilde0Conj.x, oceanBuffer[index].htilde0Conj.y);
 
 	float omegat = dispersion(n_prime, m_prime) * t;
 
@@ -128,57 +128,57 @@ void vkOceanWaveDFT::evaluateWaves(float t) {
 		{
 			index = m_prime * Nplus1 + n_prime;
 
-			x = vector2(verticesOcean[index].pos[0], verticesOcean[index].pos[2]);
+			x = vector2(oceanBuffer[index].pos.x, oceanBuffer[index].pos.z);
 
 			h_d_and_n = h_D_and_n(x, t);
 
-			verticesOcean[index].pos[1] = h_d_and_n.h.a;
+			oceanBuffer[index].pos.y = h_d_and_n.h.a;
 
-			verticesOcean[index].pos[0] = verticesOcean[index].originalPos[0] + lambda * h_d_and_n.D.x;
-			verticesOcean[index].pos[2] = verticesOcean[index].originalPos[1] + lambda * h_d_and_n.D.y;
+			oceanBuffer[index].pos.x = oceanBuffer[index].originalPos.x + lambda * h_d_and_n.D.x;
+			oceanBuffer[index].pos.z = oceanBuffer[index].originalPos.z + lambda * h_d_and_n.D.y;
 
-			verticesOcean[index].normal[0] = h_d_and_n.n.x;
-			verticesOcean[index].normal[1] = h_d_and_n.n.y;
-			verticesOcean[index].normal[2] = h_d_and_n.n.z;
+			oceanBuffer[index].normal.x = h_d_and_n.n.x;
+			oceanBuffer[index].normal.y = h_d_and_n.n.y;
+			oceanBuffer[index].normal.z = h_d_and_n.n.z;
 
 			if (n_prime == 0 && m_prime == 0) 
 			{
-				verticesOcean[index + N + Nplus1 * N].pos[1] = h_d_and_n.h.a;
+				oceanBuffer[index + N + Nplus1 * N].pos.y = h_d_and_n.h.a;
 
-				verticesOcean[index + N + Nplus1 * N].pos[0] = verticesOcean[index + N + Nplus1 * N].originalPos[0] + lambda * h_d_and_n.D.x;
-				verticesOcean[index + N + Nplus1 * N].pos[2] = verticesOcean[index + N + Nplus1 * N].originalPos[2] + lambda * h_d_and_n.D.y;
+				oceanBuffer[index + N + Nplus1 * N].pos.x = oceanBuffer[index + N + Nplus1 * N].originalPos.x + lambda * h_d_and_n.D.x;
+				oceanBuffer[index + N + Nplus1 * N].pos.z = oceanBuffer[index + N + Nplus1 * N].originalPos.z + lambda * h_d_and_n.D.y;
 
-				verticesOcean[index + N + Nplus1 * N].normal[0] = h_d_and_n.n.x;
-				verticesOcean[index + N + Nplus1 * N].normal[1] = h_d_and_n.n.y;
-				verticesOcean[index + N + Nplus1 * N].normal[2] = h_d_and_n.n.z;
+				oceanBuffer[index + N + Nplus1 * N].normal.x = h_d_and_n.n.x;
+				oceanBuffer[index + N + Nplus1 * N].normal.y = h_d_and_n.n.y;
+				oceanBuffer[index + N + Nplus1 * N].normal.z = h_d_and_n.n.z;
 			}
 			if (n_prime == 0) 
 			{
-				verticesOcean[index + N].pos[1] = h_d_and_n.h.a;
+				oceanBuffer[index + N].pos.y = h_d_and_n.h.a;
 
-				verticesOcean[index + N].pos[0] = verticesOcean[index + N].originalPos[0] + lambda * h_d_and_n.D.x;
-				verticesOcean[index + N].pos[2] = verticesOcean[index + N].originalPos[2] + lambda * h_d_and_n.D.y;
+				oceanBuffer[index + N].pos.x = oceanBuffer[index + N].originalPos.x + lambda * h_d_and_n.D.x;
+				oceanBuffer[index + N].pos.z = oceanBuffer[index + N].originalPos.z + lambda * h_d_and_n.D.y;
 
-				verticesOcean[index + N].normal[0] = h_d_and_n.n.x;
-				verticesOcean[index + N].normal[1] = h_d_and_n.n.y;
-				verticesOcean[index + N].normal[2] = h_d_and_n.n.z;
+				oceanBuffer[index + N].normal.x = h_d_and_n.n.x;
+				oceanBuffer[index + N].normal.y = h_d_and_n.n.y;
+				oceanBuffer[index + N].normal.z = h_d_and_n.n.z;
 			}
 			if (m_prime == 0) 
 			{
-				verticesOcean[index + Nplus1 * N].pos[1] = h_d_and_n.h.a;
+				oceanBuffer[index + Nplus1 * N].pos.y = h_d_and_n.h.a;
 
-				verticesOcean[index + Nplus1 * N].pos[0] = verticesOcean[index + Nplus1 * N].originalPos[0] + lambda * h_d_and_n.D.x;
-				verticesOcean[index + Nplus1 * N].pos[2] = verticesOcean[index + Nplus1 * N].originalPos[2] + lambda * h_d_and_n.D.y;
+				oceanBuffer[index + Nplus1 * N].pos.x = oceanBuffer[index + Nplus1 * N].originalPos.x + lambda * h_d_and_n.D.x;
+				oceanBuffer[index + Nplus1 * N].pos.z = oceanBuffer[index + Nplus1 * N].originalPos.z + lambda * h_d_and_n.D.y;
 
-				verticesOcean[index + Nplus1 * N].normal[0] = h_d_and_n.n.x;
-				verticesOcean[index + Nplus1 * N].normal[1] = h_d_and_n.n.y;
-				verticesOcean[index + Nplus1 * N].normal[2] = h_d_and_n.n.z;
+				oceanBuffer[index + Nplus1 * N].normal.x = h_d_and_n.n.x;
+				oceanBuffer[index + Nplus1 * N].normal.y = h_d_and_n.n.y;
+				oceanBuffer[index + Nplus1 * N].normal.z = h_d_and_n.n.z;
 			}
 		}
 	}
 
-	size_t size = (Nplus1) * (Nplus1) * sizeof(vertexOcean);
-	memcpy(oceanMappedMemory, verticesOcean, size);
+	oceanWaves.size = (Nplus1) * (Nplus1) * sizeof(vertexOcean);
+	memcpy(oceanWaves.mappedMemory, oceanBuffer.data(), oceanWaves.size);
 }
 
 
@@ -197,40 +197,40 @@ vkOceanWaveDFT::vkOceanWaveDFT() : VulkanExampleBase(ENABLE_VALIDATION)
 	w = vector2(0.0f, 32.0f);
 	length = 64;
 
-	verticesOcean = new vertexOcean[Nplus1 * Nplus1];
-	indices = new unsigned int[Nplus1 * Nplus1 * 10];
+	//verticesOcean = new vertexOcean[Nplus1 * Nplus1];
+	//indices = new unsigned int[Nplus1 * Nplus1 * 10];
 
-	oceanMappedMemory = nullptr;;
+	//oceanMappedMemory = nullptr;;
 }
 
 vkOceanWaveDFT::~vkOceanWaveDFT()
+{
+	// Clean up used Vulkan resources 
+	// Note : Inherited destructor cleans up resources stored in base class
+
+
+	vkDestroyPipeline(device, pipelines.solid, nullptr);
+
+	vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
+	vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
+
+
+	/*if (verticesOcean)
 	{
-		// Clean up used Vulkan resources 
-		// Note : Inherited destructor cleans up resources stored in base class
+		delete[] verticesOcean;
+	}*/
 
+	/*if (indices)
+	{
+		delete[] indices;
+	}*/
 
-		vkDestroyPipeline(device, pipelines.solid, nullptr);
-
-		vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
-		vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
-
-		//vkUnmapMemory(device, oceanMemory);
-		//vkFreeMemory(device, oceanMemory, nullptr);
-
-		if (verticesOcean)
-		{
-			delete[] verticesOcean;
-		}
-
-		if (indices)
-		{
-			delete[] indices;
-		}
-
-		vertexBuffer.destroy();
-		indexBuffer.destroy();
-		uniformBufferVS.destroy();
-	}
+	vkUnmapMemory(device, oceanWaves.memory);
+	vkDestroyBuffer(device, oceanWaves.buffer, nullptr);
+	vkFreeMemory(device, oceanWaves.memory, nullptr);
+	//indexBuffer.destroy();
+	uniformBufferVS.destroy();
+}
 
 
 
@@ -270,10 +270,11 @@ void vkOceanWaveDFT::buildCommandBuffers()
 		vkCmdBindPipeline(drawCmdBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines.solid);
 
 		VkDeviceSize offsets[1] = { 0 };
-		vkCmdBindVertexBuffers(drawCmdBuffers[i], VERTEX_BUFFER_BIND_ID, 1, &vertexBuffer.buffer, offsets);
-		vkCmdBindIndexBuffer(drawCmdBuffers[i], indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT32);
+		vkCmdBindVertexBuffers(drawCmdBuffers[i], VERTEX_BUFFER_BIND_ID, 1, &oceanWaves.buffer, offsets);
+		//vkCmdBindIndexBuffer(drawCmdBuffers[i], indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT32);
 
-		vkCmdDrawIndexed(drawCmdBuffers[i], indexCount, 1, 0, 0, 0);
+		//vkCmdDrawIndexed(drawCmdBuffers[i], indexCount, 1, 0, 0, 0);
+		vkCmdDraw(drawCmdBuffers[i], (Nplus1) * (Nplus1), 1, 0, 0);
 
 		drawUI(drawCmdBuffers[i]);
 
@@ -299,8 +300,10 @@ void vkOceanWaveDFT::draw()
 
 void vkOceanWaveDFT::initMeshData()
 {
-	int index;
+	oceanBuffer.resize(Nplus1 * Nplus1);
 
+	int index;
+	
 	complex htilde0, htilde0mk_conj;
 	for (int m_prime = 0; m_prime < Nplus1; m_prime++) {
 		for (int n_prime = 0; n_prime < Nplus1; n_prime++) {
@@ -309,58 +312,58 @@ void vkOceanWaveDFT::initMeshData()
 			htilde0 = hTilde_0(n_prime, m_prime);
 			htilde0mk_conj = hTilde_0(-n_prime, -m_prime).conj();
 
-			verticesOcean[index].htilde0[0] = htilde0.a;
-			verticesOcean[index].htilde0[1] = htilde0.b;
-			verticesOcean[index].htilde0Conj[0] = htilde0mk_conj.a;
-			verticesOcean[index].htilde0Conj[1] = htilde0mk_conj.b;
+			oceanBuffer[index].htilde0.x = htilde0.a;
+			oceanBuffer[index].htilde0.y = htilde0.b;
+			oceanBuffer[index].htilde0Conj.x = htilde0mk_conj.a;
+			oceanBuffer[index].htilde0Conj.y = htilde0mk_conj.b;
 
-			verticesOcean[index].originalPos[0] = verticesOcean[index].pos[0] = (n_prime - N / 2.0f) * length / N;
-			verticesOcean[index].originalPos[1] = verticesOcean[index].pos[1] = 0.0f;
-			verticesOcean[index].originalPos[2] = verticesOcean[index].pos[2] = (m_prime - N / 2.0f) * length / N;
+			oceanBuffer[index].originalPos.x = oceanBuffer[index].pos.x = (n_prime - N / 2.0f) * length / N;
+			oceanBuffer[index].originalPos.y = oceanBuffer[index].pos.y = 0.0f;
+			oceanBuffer[index].originalPos.z = oceanBuffer[index].pos.z = (m_prime - N / 2.0f) * length / N;
 
-			verticesOcean[index].normal[0] = 0.0f;
-			verticesOcean[index].normal[1] = 1.0f;
-			verticesOcean[index].normal[2] = 0.0f;
+			oceanBuffer[index].normal.x = 0.0f;
+			oceanBuffer[index].normal.y = 1.0f;
+			oceanBuffer[index].normal.z = 0.0f;
 		}
 	}
 
-	indexCount = 0;
-	for (int m_prime = 0; m_prime < N; m_prime++) 
-	{
-		for (int n_prime = 0; n_prime < N; n_prime++) 
-		{
-			index = m_prime * Nplus1 + n_prime;
+	//indexCount = 0;
+	//for (int m_prime = 0; m_prime < N; m_prime++) 
+	//{
+	//	for (int n_prime = 0; n_prime < N; n_prime++) 
+	//	{
+	//		index = m_prime * Nplus1 + n_prime;
 
-			indices[indexCount++] = index;				// two triangles
-			indices[indexCount++] = index + Nplus1;
-			indices[indexCount++] = index + Nplus1 + 1;
-			indices[indexCount++] = index;
-			indices[indexCount++] = index + Nplus1 + 1;
-			indices[indexCount++] = index + 1;
-				
-		}
-	}
+	//		indices[indexCount++] = index;				// two triangles
+	//		indices[indexCount++] = index + Nplus1;
+	//		indices[indexCount++] = index + Nplus1 + 1;
+	//		indices[indexCount++] = index;
+	//		indices[indexCount++] = index + Nplus1 + 1;
+	//		indices[indexCount++] = index + 1;
+	//			
+	//	}
+	//}
 
-	size_t size = (Nplus1) * (Nplus1) * sizeof(vertexOcean);
+	oceanWaves.size = (Nplus1) * (Nplus1) * sizeof(vertexOcean);
 	// Create buffers
 	// For the sake of simplicity we won't stage the vertex data to the gpu memory
 	// Vertex buffer
 	VK_CHECK_RESULT(vulkanDevice->createBuffer(
 		VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
-		size,
-		&vertexBuffer.buffer,
-		&oceanMemory,
-		verticesOcean));
+		oceanWaves.size,
+		&oceanWaves.buffer,
+		&oceanWaves.memory,
+		oceanBuffer.data()));
 	// Index buffer
-	VK_CHECK_RESULT(vulkanDevice->createBuffer(
+	/*VK_CHECK_RESULT(vulkanDevice->createBuffer(
 		VK_BUFFER_USAGE_INDEX_BUFFER_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
 		&indexBuffer,
 		indexCount * sizeof(unsigned int),
-		indices));
+		indices));*/
 
-	VK_CHECK_RESULT(vkMapMemory(device, oceanMemory, 0, size, 0, &oceanMappedMemory));
+	VK_CHECK_RESULT(vkMapMemory(device, oceanWaves.memory, 0, oceanWaves.size, 0, &oceanWaves.mappedMemory));
 }
 
 void vkOceanWaveDFT::setupVertexDescriptions()
@@ -377,26 +380,9 @@ void vkOceanWaveDFT::setupVertexDescriptions()
 	// Describes memory layout and shader positions
 	vertices.attributeDescriptions.resize(2);
 	// Location 0 : Position
-	vertices.attributeDescriptions[0] =
-		vks::initializers::vertexInputAttributeDescription(
-			VERTEX_BUFFER_BIND_ID,
-			0,
-			VK_FORMAT_R32G32B32_SFLOAT,
-			offsetof(vertexOcean, pos));
+	vertices.attributeDescriptions[0] = vks::initializers::vertexInputAttributeDescription(VERTEX_BUFFER_BIND_ID, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(vertexOcean, pos));
 	// Location 1 : Texture coordinates
-	vertices.attributeDescriptions[1] =
-		vks::initializers::vertexInputAttributeDescription(
-			VERTEX_BUFFER_BIND_ID,
-			1,
-			VK_FORMAT_R32G32B32_SFLOAT,
-			offsetof(vertexOcean, normal));
-	// Location 2 : Vertex normal
-	/*vertices.attributeDescriptions[2] =
-		vks::initializers::vertexInputAttributeDescription(
-			VERTEX_BUFFER_BIND_ID,
-			2,
-			VK_FORMAT_R32G32B32_SFLOAT,
-			offsetof(Vertex, normal));*/
+	vertices.attributeDescriptions[1] = vks::initializers::vertexInputAttributeDescription(VERTEX_BUFFER_BIND_ID, 1, VK_FORMAT_R32G32B32_SFLOAT, offsetof(vertexOcean, normal));
 
 	vertices.inputState = vks::initializers::pipelineVertexInputStateCreateInfo();
 	vertices.inputState.vertexBindingDescriptionCount = static_cast<uint32_t>(vertices.bindingDescriptions.size());
@@ -546,7 +532,7 @@ void vkOceanWaveDFT::preparePipelines()
 	VK_CHECK_RESULT(vkCreateGraphicsPipelines(device, pipelineCache, 1, &pipelineCreateInfo, nullptr, &pipelines.solid));
 }
 
-	// Prepare and initialize uniform buffer containing shader uniforms
+// Prepare and initialize uniform buffer containing shader uniforms
 void vkOceanWaveDFT::prepareUniformBuffers()
 {
 	// Vertex shader uniform buffer block
@@ -607,7 +593,7 @@ void vkOceanWaveDFT::render()
 	if (!prepared)
 		return;
 	draw();
-	evaluateWaves(frameTimer * 0.01f);
+	evaluateWaves(frameTimer * 0.45f);
 	updateUniformBufferLight();
 }
 
