@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="vkWaveDFT.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="complex.cpp">
@@ -44,6 +44,9 @@
       <Filter>源文件</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vkWaveDFT.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
