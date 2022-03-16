@@ -593,7 +593,7 @@ void vkOceanWaveDFT::render()
 	if (!prepared)
 		return;
 	draw();
-	evaluateWaves(frameTimer * 0.45f);
+	evaluateWaves(frameTimer); // the frameTimer factor can be adjusted by multiplied by a scalar
 	updateUniformBufferLight();
 }
 
