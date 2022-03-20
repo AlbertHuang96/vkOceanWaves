@@ -60,7 +60,7 @@ public:
 
 	std::vector<vertexOcean> oceanBuffer;
 	//vertexOcean* verticesOcean;
-	//unsigned int* indices;
+	std::vector<uint32_t> indices;
 
 	float g;				// gravity constant
 	uint64_t N, Nplus1;				// dimension -- N should be a power of 2
@@ -69,8 +69,8 @@ public:
 	float length;				// length parameter
 
 	//vks::Buffer vertexBuffer;
-	//vks::Buffer indexBuffer;
-	//uint32_t indexCount;
+	vks::Buffer indexBuffer;
+	uint32_t indexCount;
 
 	vks::Buffer uniformBufferVS;
 

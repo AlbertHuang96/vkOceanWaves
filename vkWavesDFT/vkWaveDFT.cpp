@@ -228,7 +228,8 @@ vkOceanWaveDFT::~vkOceanWaveDFT()
 	vkUnmapMemory(device, oceanWaves.memory);
 	vkDestroyBuffer(device, oceanWaves.buffer, nullptr);
 	vkFreeMemory(device, oceanWaves.memory, nullptr);
-	//indexBuffer.destroy();
+
+	indexBuffer.destroy();
 	uniformBufferVS.destroy();
 }
 
@@ -271,10 +272,10 @@ void vkOceanWaveDFT::buildCommandBuffers()
 
 		VkDeviceSize offsets[1] = { 0 };
 		vkCmdBindVertexBuffers(drawCmdBuffers[i], VERTEX_BUFFER_BIND_ID, 1, &oceanWaves.buffer, offsets);
-		//vkCmdBindIndexBuffer(drawCmdBuffers[i], indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT32);
+		vkCmdBindIndexBuffer(drawCmdBuffers[i], indexBuffer.buffer, 0, VK_INDEX_TYPE_UINT32);
 
-		//vkCmdDrawIndexed(drawCmdBuffers[i], indexCount, 1, 0, 0, 0);
-		vkCmdDraw(drawCmdBuffers[i], (Nplus1) * (Nplus1), 1, 0, 0);
+		vkCmdDrawIndexed(drawCmdBuffers[i], indexCount, 1, 0, 0, 0);
+		//vkCmdDraw(drawCmdBuffers[i], (Nplus1) * (Nplus1), 1, 0, 0);
 
 		drawUI(drawCmdBuffers[i]);
 
@@ -327,22 +328,23 @@ void vkOceanWaveDFT::initMeshData()
 		}
 	}
 
-	//indexCount = 0;
-	//for (int m_prime = 0; m_prime < N; m_prime++) 
-	//{
-	//	for (int n_prime = 0; n_prime < N; n_prime++) 
-	//	{
-	//		index = m_prime * Nplus1 + n_prime;
+	indices.resize(Nplus1 * Nplus1 * 10);
+	indexCount = 0;
+	for (int m_prime = 0; m_prime < N; m_prime++) 
+	{
+		for (int n_prime = 0; n_prime < N; n_prime++) 
+		{
+			index = m_prime * Nplus1 + n_prime;
 
-	//		indices[indexCount++] = index;				// two triangles
-	//		indices[indexCount++] = index + Nplus1;
-	//		indices[indexCount++] = index + Nplus1 + 1;
-	//		indices[indexCount++] = index;
-	//		indices[indexCount++] = index + Nplus1 + 1;
-	//		indices[indexCount++] = index + 1;
-	//			
-	//	}
-	//}
+			indices[indexCount++] = index;				// two triangles
+			indices[indexCount++] = index + Nplus1;
+			indices[indexCount++] = index + Nplus1 + 1;
+			indices[indexCount++] = index;
+			indices[indexCount++] = index + Nplus1 + 1;
+			indices[indexCount++] = index + 1;
+				
+		}
+	}
 
 	oceanWaves.size = (Nplus1) * (Nplus1) * sizeof(vertexOcean);
 	// Create buffers
@@ -356,12 +358,12 @@ void vkOceanWaveDFT::initMeshData()
 		&oceanWaves.memory,
 		oceanBuffer.data()));
 	// Index buffer
-	/*VK_CHECK_RESULT(vulkanDevice->createBuffer(
+	VK_CHECK_RESULT(vulkanDevice->createBuffer(
 		VK_BUFFER_USAGE_INDEX_BUFFER_BIT,
 		VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
 		&indexBuffer,
-		indexCount * sizeof(unsigned int),
-		indices));*/
+		indexCount * sizeof(uint32_t),
+		indices.data()));
 
 	VK_CHECK_RESULT(vkMapMemory(device, oceanWaves.memory, 0, oceanWaves.size, 0, &oceanWaves.mappedMemory));
 }
