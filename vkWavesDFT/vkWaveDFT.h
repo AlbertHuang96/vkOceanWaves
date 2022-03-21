@@ -8,6 +8,7 @@
 #include "complex.h"
 #include "vector.h"
 #include "utils.h"
+#include "fft.h"
 
 // Vertex layout for this example
 struct vertexOcean {
@@ -41,6 +42,8 @@ private:
 
 	void evaluateWaves(float t);
 
+	void evaluateWavesFFT(float t);
+
 public:
 	struct {
 		VkPipelineVertexInputStateCreateInfo inputState;
@@ -62,13 +65,17 @@ public:
 	//vertexOcean* verticesOcean;
 	std::vector<uint32_t> indices;
 
+	complex* h_tilde,			// for fast fourier transform
+		* h_tilde_slopex, * h_tilde_slopez,
+		* h_tilde_dx, * h_tilde_dz;
+	cFFT* fft;				// fast fourier transform
+
 	float g;				// gravity constant
 	uint64_t N, Nplus1;				// dimension -- N should be a power of 2
 	float A;				// phillips spectrum parameter -- affects heights of waves
 	vector2 w;				// wind parameter
 	float length;				// length parameter
 
-	//vks::Buffer vertexBuffer;
 	vks::Buffer indexBuffer;
 	uint32_t indexCount;
 

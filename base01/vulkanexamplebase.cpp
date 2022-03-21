@@ -866,7 +866,8 @@ bool VulkanExampleBase::initVulkan()
 
 	// Select physical device to be used for the Vulkan example
 	// Defaults to the first device unless specified by command line
-	uint32_t selectedDevice = 0;
+	// 0 is intel UHD and 1 is NVIDIA
+	uint32_t selectedDevice = 1;
 
 #if !defined(VK_USE_PLATFORM_ANDROID_KHR)	
 	// GPU selection via command line argument
@@ -917,11 +918,11 @@ bool VulkanExampleBase::initVulkan()
 		}
 	}
 #endif
-
+	// GPU select
 	physicalDevice = physicalDevices[selectedDevice];
 
 	// Store properties (including limits), features and memory properties of the phyiscal device (so that examples can check against them)
-	vkGetPhysicalDeviceProperties(physicalDevice, &deviceProperties);
+	vkGetPhysicalDeviceProperties(physicalDevice, &deviceProperties); //deviceProperties.deviceName GPU's name
 	vkGetPhysicalDeviceFeatures(physicalDevice, &deviceFeatures);
 	vkGetPhysicalDeviceMemoryProperties(physicalDevice, &deviceMemoryProperties);
 

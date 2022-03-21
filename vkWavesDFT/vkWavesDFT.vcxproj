@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="complex.cpp" />
+    <ClCompile Include="fft.cpp" />
     <ClCompile Include="vkWaveDFT.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vector.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="complex.h" />
+    <ClInclude Include="fft.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="vkWaveDFT.h" />
