@@ -7,3 +7,5 @@ It is very slowly due to the algorithm - discrete Fourier Transform.
 
 In the latest version I update it to the Fast Fourier Transform algorithm. 
 Under NVIDIA Geforce RTX 3050 Ti Laptop GPU and Intel i7-11800H @2.30GHz, the FPS is about 120+.
+
+You can use mouse and wheel to navigate. For now I do not set any cull mode.
