@@ -1,4 +1,6 @@
-# vkWave
+# vkOceanWaves
+
+Vulkan implementation of ocean waves in both DFT and FFT
 
 It is now basically a well organized version of Discrete Fourier Transformation Ocean Wave. 
 The base project (base.lib) from the SaschaWillems examples codebase was used as a framework to provide a wrapper of Vulkan APIs.
