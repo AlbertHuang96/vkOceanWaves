@@ -21,3 +21,5 @@ You can change it to 0 in case:
  you want to switch to another GPU 
  or you only have only one GPU and the program crashes at the GPU selection.
  (The GPU will show on the window title and the control panel as well.)
+ 
+![wave](https://user-images.githubusercontent.com/42757470/159940977-d4095f51-8ebb-47dd-9f47-5e612a761801.png)
