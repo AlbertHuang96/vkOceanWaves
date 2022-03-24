@@ -13,3 +13,11 @@ Under NVIDIA Geforce RTX 3050 Ti Laptop GPU and Intel i7-11800H @2.30GHz, the FP
 Updated: In release mode it is about 300 fps.
 
 You can use mouse and wheel to navigate. For now I do not set any cull mode.
+
+NOTICE: 
+You can select your GPU in the line 870 in vulkanexamplebase.cpp. 
+The variable selectedDevice is 1 for default. 
+You can change it to 0 in case:
+ you want to switch to another GPU 
+ or you only have only one GPU and the program crashes at the GPU selection.
+ (The GPU will show on the window title and the control panel as well.)
