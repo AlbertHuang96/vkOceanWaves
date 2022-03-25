@@ -30,4 +30,4 @@ The variable ***selectedDevice*** is 1 for default. You can change it to 0 in ca
 - `You only have only one GPU and the program crashes at the GPU selection.`
  
 ![wave](https://user-images.githubusercontent.com/42757470/159940977-d4095f51-8ebb-47dd-9f47-5e612a761801.png)
-<center> (The GPU will show on the window title and the control panel as well.) </center>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; (The GPU will show on the window title and the control panel as well.)
