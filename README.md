@@ -8,7 +8,7 @@ The base project (base.lib) from the SaschaWillems examples codebase was used as
 
 You can use mouse and wheel to navigate. For now I do not set any cull mode.
 
-#### Perfermance
+#### Performance
 It is very slowly due to the algorithm - Discrete Fourier Transform **(DFT)**.
 In the latest version I update it to the Fast Fourier Transform algorithm **(FFT)**.
 
